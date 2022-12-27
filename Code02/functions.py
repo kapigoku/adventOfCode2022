@@ -1,23 +1,25 @@
-#convertToList(): Convert text file to list, Nesting a new list each " ".
+#convertToList(): Convert text file to a nested list of two letters.
 def convertToList():
-    with open('Code02/test02.txt') as text:
-        return [line.split() for line in text]
+    with open('Code02/input.txt') as file:
+        return [line.split() for line in file]
 
-#changeFirstIndex(stringList): Convert the first index from each list to its equivalent from a dictionary variable.
-def changeFirstIndex(stringList):
-    dictFile = {'A' : 'X', 'B' : 'Y', 'C' : 'Z',}
-    return [[dictFile.get(letter[0], letter[0]) for letter in sublist] for sublist in stringList]
+print(convertToList())
+#changeFirstIndex(strLst): Convert the first index from each list to its equivalent from a dictionary.
+def changeFirstIndex(strLst):
+    mapping = {'A' : 'X', 'B' : 'Y', 'C' : 'Z',}
+    return [[mapping.get(string[0], string[0]) for string in strSubLst] for strSubLst in strLst]
 
-#outcomeRound(stringList): Create a new nested list based from the game map and matches matrix data.
-def outcomeRound(gameList):
-    gameMap = {'X' : 0, 'Y' : 1, 'Z' : 2}
-    wldMatrix = [[3, 6, 0], [0, 3, 6], [6, 0, 3]]
+#outcomeRound(pointLst): Create a nested list based from the game map and point matrix data.
+def outcomeRound(pointLst):
+    pointMap = {'X' : 0, 'Y' : 1, 'Z' : 2}
+    pointMatrix = [[3, 6, 0], [0, 3, 6], [6, 0, 3]]
 
-    for item, subList in enumerate(gameList):
-        gameList[item][0] = wldMatrix[gameMap.get(subList[0])][gameMap.get(subList[1])]
-        gameList[item][1] = gameMap.get(subList[1]) + 1
+    for point, pointSubLst in enumerate(pointLst):
+        pointSubLst[0] = pointMatrix[pointMap.get(pointSubLst[0])][pointMap.get(pointSubLst[1])]
+        pointSubLst[1] = pointMap.get(pointSubLst[1]) + 1
 
-    return gameList
+    return pointLst
 
-#totalScore(stringList): Sum the nested list, to return the total score.
-totalScore = lambda integerList : sum([sum(item) for item in integerList])
+#totalScore(intLst): Sum the nested list to return the total score.
+def totalScore(pointLst):
+    return sum([sum(pointSubLst) for pointSubLst in pointLst])
